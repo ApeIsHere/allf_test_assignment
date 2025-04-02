@@ -1,0 +1,43 @@
+.sidebar {
+  width: 250px;
+  height: 800px;
+  padding: 20px 20px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 4px 0px 16px 0px rgba(0, 0, 0, 0.08);
+
+  &__title {
+    height: 40px;
+
+    & h2 {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+    }
+
+    & p {
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: 0.24px;
+    }
+  }
+
+  &__menu {
+    height: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__footer {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0.24px;
+    text-align: center;
+  }
+}
