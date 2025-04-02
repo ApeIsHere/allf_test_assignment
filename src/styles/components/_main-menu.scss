@@ -22,11 +22,13 @@
     width: 36px;
     height: 36px;
     border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
     &:hover {
-      background-color: v.$brand-primary-hovered;
+      background-color: v.$brand-primary-10;
     }
     &--selected {
-      background-color: v.$brand-primary-selected;
+      background-color: v.$brand-primary-20;
     }
   }
 }

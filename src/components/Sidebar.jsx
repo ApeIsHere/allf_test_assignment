@@ -1,3 +1,6 @@
+import Button from "./Button";
+import PlusIcon from "./PlusIcon";
+
 function Sidebar() {
   return (
     <div className="sidebar">
@@ -22,9 +25,9 @@ function SidebarTitle() {
 function SidebarMenu() {
   return (
     <div className="sidebar__menu">
-      <button>Organizations</button>
-      <button>Contractors</button>
-      <button>Clients</button>
+      <Button>Organizations</Button>
+      <Button type="outline">Contractors</Button>
+      <Button type="outline">Clients</Button>
     </div>
   );
 }

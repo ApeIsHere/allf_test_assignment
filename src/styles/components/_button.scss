@@ -1,0 +1,107 @@
+@use "../variables" as v;
+
+.button {
+  position: relative;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.48px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  cursor: pointer;
+
+  &__icon {
+    position: absolute;
+  }
+
+  //type
+  &--filled {
+    background-color: v.$brand-primary;
+    color: v.$white;
+    border: none;
+    box-shadow: 0px 3px 8px 0px #0000001f;
+    &:hover {
+      background-color: v.$brand-primary-20;
+    }
+    &:active {
+      background-color: v.$brand-primary-30;
+      transform: scale(0.98);
+    }
+
+    & .button__icon {
+      & path {
+        fill: v.$white;
+      }
+    }
+  }
+
+  &--outline {
+    border: 1px solid v.$black-20;
+
+    &:hover {
+      border-color: v.$black-40;
+      color: v.$brand-secondary;
+      & .button__icon {
+        & path {
+          fill: v.$brand-secondary;
+        }
+      }
+    }
+
+    &:active {
+      border-color: v.$brand-variant;
+      transform: scale(0.98);
+      & .button__icon {
+        & path {
+          fill: v.$brand-variant;
+        }
+      }
+    }
+
+    & .button__icon {
+      & path {
+        fill: v.$brand-primary;
+      }
+    }
+  }
+
+  &--bright {
+    border: none;
+    &:hover {
+      background-color: v.$white;
+    }
+    &:active {
+      background-color: v.$brand-assist;
+    }
+  }
+
+  //size
+  &--normal {
+    font-size: 13px;
+    height: 40;
+    padding: 10px 12px;
+
+    & .button__icon {
+      top: 12px;
+      left: 12px;
+    }
+  }
+
+  &--mini {
+    font-size: 11px;
+    height: 28px;
+    padding: 4px 8px;
+
+    & .button__icon {
+      top: 6px;
+      left: 8px;
+    }
+  }
+
+  &--small {
+    width: 32px !important;
+    height: 32px;
+    padding: 6px;
+    border-radius: 50%;
+  }
+}
