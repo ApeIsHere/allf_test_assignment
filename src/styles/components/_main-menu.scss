@@ -16,18 +16,32 @@
     list-style: none;
   }
 
+  &__additional {
+    position: relative;
+    &::before {
+      content: "";
+      width: 19px;
+      height: 1px;
+      background-color: v.$brand-primary-20;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   &__module {
-    display: flex;
-    justify-content: center;
+    border: none;
     width: 36px;
     height: 36px;
     border-radius: 8px;
     transition: all 0.2s ease;
     cursor: pointer;
+    background-color: v.$brand-primary;
     &:hover {
       background-color: v.$brand-primary-10;
     }
-    &--selected {
+    &:active {
       background-color: v.$brand-primary-20;
     }
   }
