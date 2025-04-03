@@ -1,5 +1,4 @@
-import Button from "./Button";
-import PlusIcon from "./PlusIcon";
+import Button from "./ui/Button";
 
 function Sidebar() {
   return (

@@ -1,7 +1,6 @@
 @use "../variables" as v;
 
 .button {
-  position: relative;
   font-weight: 600;
   line-height: 20px;
   letter-spacing: 0.48px;
@@ -10,8 +9,9 @@
   background-color: transparent;
   cursor: pointer;
 
-  &__icon {
-    position: absolute;
+  svg {
+    width: 16px;
+    height: 16px;
   }
 
   //type
@@ -27,10 +27,9 @@
       background-color: v.$brand-primary-30;
       transform: scale(0.98);
     }
-
-    & .button__icon {
+    svg {
       & path {
-        fill: v.$white;
+        stroke: v.$white;
       }
     }
   }
@@ -38,12 +37,19 @@
   &--outline {
     border: 1px solid v.$black-20;
 
+    & svg {
+      & path {
+        stroke: v.$brand-primary;
+      }
+    }
+
     &:hover {
       border-color: v.$black-40;
       color: v.$brand-secondary;
-      & .button__icon {
+
+      svg {
         & path {
-          fill: v.$brand-secondary;
+          stroke: v.$brand-secondary;
         }
       }
     }
@@ -51,22 +57,22 @@
     &:active {
       border-color: v.$brand-variant;
       transform: scale(0.98);
-      & .button__icon {
+      & svg {
         & path {
-          fill: v.$brand-variant;
+          stroke: v.$brand-variant;
         }
-      }
-    }
-
-    & .button__icon {
-      & path {
-        fill: v.$brand-primary;
       }
     }
   }
 
   &--bright {
     border: none;
+    cursor: default;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
     &:hover {
       background-color: v.$white;
     }
@@ -77,25 +83,25 @@
 
   //size
   &--normal {
+    position: relative;
     font-size: 13px;
     height: 40;
     padding: 10px 12px;
 
-    & .button__icon {
+    & svg {
+      position: absolute;
       top: 12px;
       left: 12px;
     }
   }
 
   &--mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 11px;
     height: 28px;
     padding: 4px 8px;
-
-    & .button__icon {
-      top: 6px;
-      left: 8px;
-    }
   }
 
   &--small {

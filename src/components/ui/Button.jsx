@@ -2,7 +2,7 @@ function Button({
   children,
   type = "filled",
   size = "normal",
-  icon = null,
+  icon: IconComponent = null,
   width = "100%",
   onClick,
   disabled = false,
@@ -14,8 +14,8 @@ function Button({
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <span className="button__icon">{icon}</span>}
-      {children && <span className="button__text">{children}</span>}
+      {IconComponent && IconComponent}
+      {children && <span>{children}</span>}
     </button>
   );
 }

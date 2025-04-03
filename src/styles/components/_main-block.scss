@@ -4,6 +4,9 @@
   flex: 1;
 
   &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     margin: 0 auto;
     padding-top: 40px;
     padding-bottom: 28px;
@@ -12,6 +15,7 @@
   }
 
   &__title {
+    margin-bottom: 16px;
     height: 40px;
     position: relative;
     display: flex;
@@ -37,20 +41,12 @@
       gap: 4px;
     }
 
-    &-button {
-      width: 32px;
-      height: 32px;
-      padding: 6px;
-      background-color: transparent;
-      border: none;
+    &-pen path {
+      stroke: v.$brand-primary;
+    }
 
-      &-pen path {
-        stroke: v.$brand-primary;
-      }
-
-      &-trash path {
-        stroke: v.$brand-assistive-red;
-      }
+    &-trash path {
+      stroke: v.$brand-assistive-red;
     }
   }
 }
