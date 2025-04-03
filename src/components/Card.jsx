@@ -21,7 +21,7 @@ function CardTitle({ type }) {
           {type === "details" && "Company Details"}
           {type === "contacts" && "Contacts"}
         </h2>
-        <Button type="outline" size="mini" width="72px" icon={<EditIcon />}>
+        <Button type="outline" size="mini" width="71px" icon={<EditIcon />}>
           Edit
         </Button>
       </div>

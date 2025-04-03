@@ -2,6 +2,7 @@
 
 .main-block {
   flex: 1;
+  background-color: v.$bg;
 
   &__container {
     display: flex;
@@ -23,7 +24,7 @@
 
     &-chevron {
       position: absolute;
-      left: -38px;
+      left: -64px;
       top: 50%;
       transform: translateY(-50%);
     }

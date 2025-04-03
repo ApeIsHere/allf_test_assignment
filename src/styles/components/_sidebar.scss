@@ -8,7 +8,9 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
+  background-color: v.$white;
   box-shadow: 4px 0px 16px 0px rgba(0, 0, 0, 0.08);
+  z-index: 1;
 
   &__title {
     height: 40px;
@@ -54,5 +56,6 @@
     line-height: 16px;
     letter-spacing: 0.24px;
     text-align: center;
+    color: v.$black-30;
   }
 }

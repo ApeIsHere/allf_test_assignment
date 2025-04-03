@@ -1,4 +1,7 @@
+import AccountIcon from "./ui/AccountIcon";
 import Button from "./ui/Button";
+import CompanyIcon from "./ui/CompanyIcon";
+import ContractorIcon from "./ui/ContractorIcon";
 
 function Sidebar() {
   return (
@@ -24,9 +27,13 @@ function SidebarTitle() {
 function SidebarMenu() {
   return (
     <div className="sidebar__menu">
-      <Button>Organizations</Button>
-      <Button type="outline">Contractors</Button>
-      <Button type="outline">Clients</Button>
+      <Button icon={<CompanyIcon />}>Organizations</Button>
+      <Button type="outline" icon={<ContractorIcon />}>
+        Contractors
+      </Button>
+      <Button type="outline" icon={<AccountIcon />}>
+        Clients
+      </Button>
     </div>
   );
 }

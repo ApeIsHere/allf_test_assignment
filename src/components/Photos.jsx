@@ -22,7 +22,7 @@ function PhotosTitle() {
           aria-label="Add photo"
           type="outline"
           size="mini"
-          width="72px"
+          width="73px"
           icon={<PhotoIcon />}
         >
           Add
@@ -36,9 +36,9 @@ function PhotosContainer() {
   return (
     <div className="photos__content">
       <ul className="photos__items">
-        <PhotoItem path={"images/image_1.png"} />
         <PhotoItem path={"images/image_2.png"} />
         <PhotoItem path={"images/image_3.png"} />
+        <PhotoItem path={"images/image_1.png"} />
       </ul>
     </div>
   );

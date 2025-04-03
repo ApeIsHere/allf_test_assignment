@@ -10,16 +10,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: v.$brand-primary;
 }
 
 .app {
-  width: 1440px;
+  max-width: 1440px;
   height: 800px;
   display: flex;
 }

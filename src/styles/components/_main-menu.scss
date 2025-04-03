@@ -30,7 +30,14 @@
     }
   }
 
+  &__logo {
+    height: 36px;
+  }
+
   &__module {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     width: 36px;
     height: 36px;
@@ -42,6 +49,11 @@
     }
     &:active {
       background-color: v.$brand-primary-20;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
     }
   }
 }

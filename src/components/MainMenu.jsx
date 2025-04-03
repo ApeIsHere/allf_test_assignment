@@ -2,7 +2,7 @@ function MainMenu() {
   return (
     <nav className="main-menu">
       <ul className="main-menu__modules">
-        <li>
+        <li className="main-menu__logo">
           <img src="/main-menu/Oak-tree.svg" alt="White Oak Tree logo" />
         </li>
         <button className="main-menu__module">
