@@ -1,0 +1,59 @@
+@use "../variables" as v;
+
+.photos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0px 3px 8px 0px #0000001f;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+
+    &-text {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: 0.3px;
+    }
+  }
+
+  &__items {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+  }
+
+  &__item {
+    position: relative;
+
+    img {
+      height: 108px;
+      border-radius: 10px;
+    }
+
+    &-delete {
+      width: 28px;
+      height: 28px;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: v.$brand-primary;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+      &:hover {
+        background-color: v.$brand-primary-10;
+      }
+      &:active {
+        background-color: v.$brand-primary-20;
+      }
+    }
+  }
+}

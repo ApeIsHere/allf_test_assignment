@@ -3,6 +3,8 @@ import Card from "./Card";
 import ChevronIcon from "./ui/ChevronIcon";
 import EditIcon from "./ui/EditIcon";
 import TrashIcon from "./ui/TrashIcon";
+import PhotoIcon from "./ui/PhotoIcon";
+import Photos from "./Photos";
 
 function MainBlock() {
   return (
@@ -11,7 +13,7 @@ function MainBlock() {
         <MainBlockTitle />
         <Card type="details" />
         <Card type="contacts" />
-        <Card />
+        <Photos />
       </div>
     </main>
   );
