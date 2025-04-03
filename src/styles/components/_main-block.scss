@@ -1,0 +1,56 @@
+@use "../variables" as v;
+
+.main-block {
+  flex: 1;
+
+  &__container {
+    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 28px;
+    width: 640px;
+    height: 756px;
+  }
+
+  &__title {
+    height: 40px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-chevron {
+      position: absolute;
+      left: -38px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &-text {
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 40px;
+      letter-spacing: 0.25px;
+    }
+
+    &-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    &-button {
+      width: 32px;
+      height: 32px;
+      padding: 6px;
+      background-color: transparent;
+      border: none;
+
+      &-pen path {
+        stroke: v.$brand-primary;
+      }
+
+      &-trash path {
+        stroke: v.$brand-assistive-red;
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
+@use "components/main-block";
 @use "components/main-menu";
 @use "components/sidebar";
 @use "components/button";
+@use "variables" as v;
 
 * {
   margin: 0;
@@ -11,6 +13,7 @@
 body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
+  color: v.$brand-primary;
 }
 
 .app {
