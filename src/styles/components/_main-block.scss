@@ -3,6 +3,7 @@
 .main-block {
   flex: 1;
   background-color: v.$bg;
+  overflow: hidden;
 
   &__container {
     display: flex;

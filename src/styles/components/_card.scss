@@ -21,25 +21,39 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    gap: 12px;
+  }
+
   &__list {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transition: all 0.2s ease;
+
+    &-edit {
+      gap: 12px;
+    }
 
     &-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      height: 32px;
+      min-height: 32px;
     }
 
     &-name {
-      width: 160px;
+      min-width: 160px;
       font-size: 13px;
       line-height: 20px;
       letter-spacing: 0.25px;
       color: v.$black-50;
+    }
+
+    &-date {
+      min-width: fit-content;
     }
 
     &-value {
@@ -50,6 +64,25 @@
       line-height: 24px;
       letter-spacing: 0.3px;
       color: v.$black-80;
+    }
+
+    &-input {
+      height: 40px;
+      width: 100%;
+      border: 1px solid v.$black-20;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      &:focus {
+        outline-color: v.$brand-assistive-focus;
+        ~ .card__list-select-arrow {
+          transform: rotateX(180deg) translateY(50%);
+        }
+      }
+
+      &--small {
+        width: 180px;
+      }
     }
   }
 }
