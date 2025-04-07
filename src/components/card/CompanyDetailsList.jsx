@@ -1,6 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomSelect from "../ui/CustomSelect.jsx";
+import { formatType } from "../../utils/formatType.js";
 
 function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) {
   const businessEntityOptions = [
@@ -93,9 +94,7 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
           <li className="card__list-item">
             <span className="card__list-name">Company type:</span>
             <span className="card__list-value">
-              {companyStore.company.type.length > 0
-                ? companyStore.company.type.join(", ")
-                : "-"}
+              {formatType(companyStore.company.type)}
             </span>
           </li>
         </ul>

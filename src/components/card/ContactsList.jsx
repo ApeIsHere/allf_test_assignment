@@ -1,3 +1,5 @@
+import { formatPhone } from "../../utils/formatPhone";
+
 function ContactsList({ isEditing, companyStore, formData, setFormData }) {
   const handleInputChange = (key, value) => {
     setFormData({ ...formData, [key]: value });
@@ -51,7 +53,9 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
           </li>
           <li className="card__list-item">
             <span className="card__list-name">Phone number:</span>
-            <span className="card__list-value">{companyStore.contact.phone}</span>
+            <span className="card__list-value">
+              {formatPhone(companyStore.contact.phone)}
+            </span>
           </li>
           <li className="card__list-item">
             <span className="card__list-name">E-mail:</span>
