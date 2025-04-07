@@ -1,13 +1,8 @@
-import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomSelect from "../ui/CustomSelect.jsx";
 
-function CompanyDetailsList({ isEditing, companyStore }) {
-  const [startDate, setStartDate] = useState(new Date());
-  const [businessEntity, setBusinessEntity] = useState([]);
-  const [companyTypes, setCompanyTypes] = useState([]);
-
+function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) {
   const businessEntityOptions = [
     "Sole Proprietorship",
     "Partnership",
@@ -20,6 +15,10 @@ function CompanyDetailsList({ isEditing, companyStore }) {
     "Burial care contractor",
   ];
 
+  const handleInputChange = (key, value) => {
+    setFormData({ ...formData, [key]: value });
+  };
+
   return (
     <>
       {isEditing ? (
@@ -29,13 +28,18 @@ function CompanyDetailsList({ isEditing, companyStore }) {
             <input
               className="card__list-input card__list-input--small"
               type="text"
-              defaultValue="1624/2-24"
+              value={formData.contractNo || companyStore.company.contract.no}
+              onChange={(e) => handleInputChange("contractNo", e.target.value)}
             />
             <span className="card__list-name card__list-date">Date:</span>
             <DatePicker
               className="card__list-input card__list-input--small"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
+              selected={
+                formData.issueDate
+                  ? new Date(formData.issueDate)
+                  : new Date(companyStore.company.contract.issue_date)
+              }
+              onChange={(date) => handleInputChange("issueDate", date.toISOString())}
               dateFormat="MM.dd.yyyy"
             />
           </li>
@@ -43,8 +47,10 @@ function CompanyDetailsList({ isEditing, companyStore }) {
             <span className="card__list-name">Business entity:</span>
             <CustomSelect
               options={businessEntityOptions}
-              selectedOptions={businessEntity}
-              onChange={setBusinessEntity}
+              selectedOptions={
+                formData.businessEntity || [companyStore.company.businessEntity]
+              }
+              onChange={(value) => handleInputChange("businessEntity", value)}
               isMulti={false}
               placeholder="Select business entity"
             />
@@ -53,8 +59,8 @@ function CompanyDetailsList({ isEditing, companyStore }) {
             <span className="card__list-name">Company type:</span>
             <CustomSelect
               options={companyTypeOptions}
-              selectedOptions={companyTypes}
-              onChange={setCompanyTypes}
+              selectedOptions={formData.companyTypes || companyStore.company.type}
+              onChange={(value) => handleInputChange("companyTypes", value)}
               isMulti={true}
               placeholder="Select company types"
             />
@@ -65,15 +71,17 @@ function CompanyDetailsList({ isEditing, companyStore }) {
           <li className="card__list-item">
             <span className="card__list-name">Agreement:</span>
             <span className="card__list-value">
-              {companyStore.company.contract.no}{" "}
+              {companyStore.company.contract.no || "-"}{" "}
               <span style={{ color: "rgba(0, 0, 0, 0.3)" }}>/</span>{" "}
-              {new Date(companyStore.company.contract.issue_date)
-                .toLocaleDateString("en-US", {
-                  month: "2-digit",
-                  day: "2-digit",
-                  year: "numeric",
-                })
-                .replace(/\//g, ".")}
+              {companyStore.company.contract.issue_date
+                ? new Date(companyStore.company.contract.issue_date)
+                    .toLocaleDateString("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    })
+                    .replace(/\//g, ".")
+                : "-"}
             </span>
           </li>
           <li className="card__list-item">

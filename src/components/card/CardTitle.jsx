@@ -3,7 +3,7 @@ import EditIcon from "../ui/EditIcon.jsx";
 import XIcon from "../ui/XIcon.jsx";
 import CheckIcon from "../ui/CheckIcon.jsx";
 
-function CardTitle({ type, onEditClick, isEditing }) {
+function CardTitle({ type, onSaveClick, onCancelClick, onEditClick, isEditing }) {
   return (
     <div className="card__title">
       <h2 className="card__title-text">
@@ -18,7 +18,7 @@ function CardTitle({ type, onEditClick, isEditing }) {
             size="mini"
             width="133px"
             icon={<CheckIcon />}
-            onClick={onEditClick}
+            onClick={onSaveClick}
           >
             Save changes
           </Button>
@@ -27,7 +27,7 @@ function CardTitle({ type, onEditClick, isEditing }) {
             size="mini"
             width="91px"
             icon={<XIcon />}
-            onClick={onEditClick}
+            onClick={onCancelClick}
           >
             Cancel
           </Button>

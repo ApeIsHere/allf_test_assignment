@@ -1,4 +1,8 @@
-function ContactsList({ isEditing, companyStore }) {
+function ContactsList({ isEditing, companyStore, formData, setFormData }) {
+  const handleInputChange = (key, value) => {
+    setFormData({ ...formData, [key]: value });
+  };
+
   return (
     <>
       {isEditing ? (
@@ -7,24 +11,33 @@ function ContactsList({ isEditing, companyStore }) {
             <span className="card__list-name">Responsible person:</span>
             <input
               type="text"
-              defaultValue="David Rosenberg"
+              value={`${formData.firstname || companyStore.contact.firstname} ${
+                formData.lastname || companyStore.contact.lastname
+              }`}
               className="card__list-input"
+              onChange={(e) => {
+                const [firstname, lastname] = e.target.value.split(" ");
+                handleInputChange("firstname", firstname);
+                handleInputChange("lastname", lastname || "");
+              }}
             />
           </li>
           <li className="card__list-item">
             <span className="card__list-name">Phone number:</span>
             <input
               type="tel"
-              defaultValue="+1 702 555 2345"
+              value={formData.phone || companyStore.contact.phone}
               className="card__list-input"
+              onChange={(e) => handleInputChange("phone", e.target.value)}
             />
           </li>
           <li className="card__list-item">
             <span className="card__list-name">E-mail:</span>
             <input
               type="email"
-              defaultValue="david_rosenberg88@gmail.com"
+              value={formData.email || companyStore.contact.email}
               className="card__list-input"
+              onChange={(e) => handleInputChange("email", e.target.value)}
             />
           </li>
         </ul>
@@ -33,7 +46,7 @@ function ContactsList({ isEditing, companyStore }) {
           <li className="card__list-item">
             <span className="card__list-name">Responsible person:</span>
             <span className="card__list-value">
-              {companyStore.contact.firstname} {companyStore.contact.lastName}
+              {companyStore.contact.firstname} {companyStore.contact.lastname}
             </span>
           </li>
           <li className="card__list-item">

@@ -19,7 +19,7 @@ function MainBlock({ companyStore }) {
         ) : (
           <>
             <MainBlockTitle companyStore={companyStore} />
-            <Card type="details" />
+            <Card type="company" />
             <Card type="contacts" />
             <Photos />
           </>
