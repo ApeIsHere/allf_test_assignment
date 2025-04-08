@@ -1,29 +1,54 @@
+import { observer } from "mobx-react-lite";
 import Button from "./ui/Button";
 import PhotoIcon from "./ui/PhotoIcon";
 import TrashIcon from "./ui/TrashIcon";
+import companyStore from "../stores/CompanyStore";
+import { useRef } from "react";
 
-function Photos() {
+const Photos = observer(() => {
+  const { photos } = companyStore.company;
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      companyStore.uploadPhoto(file);
+    }
+  };
+
+  const handleDelete = (photoName) => {
+    companyStore.deletePhoto(photoName);
+  };
+
   return (
     <div className="photos">
-      <PhotosTitle />
-      <PhotosContainer />
+      <PhotosTitle handleUpload={handleUpload} />
+      <PhotosContainer photos={photos} handleDelete={handleDelete} />
     </div>
   );
-}
+});
 
 export default Photos;
 
-function PhotosTitle() {
+function PhotosTitle({ handleUpload }) {
+  const inputRef = useRef(null);
   return (
     <>
       <div className="photos__title">
         <h2 className="photos__title-text">Photos</h2>
+        <input
+          type="file"
+          accept="image/*"
+          ref={inputRef}
+          onChange={handleUpload}
+          style={{ display: "none" }}
+        />
         <Button
           aria-label="Add photo"
           type="outline"
           size="mini"
           width="73px"
           icon={<PhotoIcon />}
+          onClick={() => inputRef.current.click()}
         >
           Add
         </Button>
@@ -32,23 +57,27 @@ function PhotosTitle() {
   );
 }
 
-function PhotosContainer() {
+function PhotosContainer({ photos, handleDelete }) {
   return (
     <div className="photos__content">
       <ul className="photos__items">
-        <PhotoItem path={"images/image_2.png"} />
-        <PhotoItem path={"images/image_3.png"} />
-        <PhotoItem path={"images/image_1.png"} />
+        {photos.map((photo) => (
+          <PhotoItem
+            key={photo.name}
+            path={photo.filepath}
+            onClick={() => handleDelete(photo.name)}
+          />
+        ))}
       </ul>
     </div>
   );
 }
 
-function PhotoItem({ path }) {
+function PhotoItem({ path, onClick }) {
   return (
     <li className="photos__item">
       <img src={path} alt="image" loading="lazy" />
-      <button className="photos__item-delete" aria-label="Delete photo">
+      <button className="photos__item-delete" aria-label="Delete photo" onClick={onClick}>
         <TrashIcon />
       </button>
     </li>

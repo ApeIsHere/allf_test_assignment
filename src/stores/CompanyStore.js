@@ -208,6 +208,61 @@ class CompanyStore {
       this.setLoading(false);
     }
   }
+
+  async uploadPhoto(file) {
+    this.setLoading(true);
+    this.setError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(
+        "https://test-task-api.allfuneral.com/companies/12/image",
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${this.token}` },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed uploading photo");
+      const newPhoto = await response.json();
+      this.setCompany({ photos: [...this.company.photos, newPhoto] });
+    } catch (err) {
+      this.setError(err.message);
+    } finally {
+      this.setLoading(false);
+    }
+  }
+
+  async deletePhoto(photoName) {
+    this.setLoading(true);
+    this.setError(null);
+
+    try {
+      const response = await fetch(
+        `https://test-task-api.allfuneral.com/companies/12/image/${photoName}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${this.token}`,
+          },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed deleting photo");
+
+      const updatedPhotos = this.company.photos.filter(
+        (photo) => photo.name !== photoName
+      );
+      this.setCompany({ photos: updatedPhotos });
+    } catch (err) {
+      this.setError(err.message);
+    } finally {
+      this.setLoading(false);
+    }
+  }
 }
 
 export default new CompanyStore();
