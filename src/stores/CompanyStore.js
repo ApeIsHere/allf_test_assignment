@@ -152,6 +152,7 @@ class CompanyStore {
 
       if (!response.ok) throw new Error("Failed to update contact data");
       const data = await response.json();
+      console.log("cotact updated came as ", data);
       this.setContact(data);
     } catch (err) {
       this.setError(err.message);
