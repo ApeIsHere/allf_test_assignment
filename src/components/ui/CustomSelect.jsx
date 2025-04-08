@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
+import useOutsideClickAndEscape from "../../hooks/useOutsideClickAndEscape";
 
 // CustomSelect: Reusable dropdown for single or multi-select
 function CustomSelect({
@@ -31,27 +32,7 @@ function CustomSelect({
   };
 
   // Handle click outside and Escape key to close dropdown
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (selectRef.current && !selectRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    const handleEscapeKey = (event) => {
-      if (event.key === "Escape") {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscapeKey);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, []);
+  useOutsideClickAndEscape(selectRef, () => setIsDropdownOpen(false));
 
   return (
     <div className="select" ref={selectRef}>
