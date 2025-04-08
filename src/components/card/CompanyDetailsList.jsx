@@ -1,22 +1,12 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomSelect from "../ui/CustomSelect.jsx";
+import { businessEntityOptions, companyTypeOptions } from "../../constants/options.js";
 import { formatType } from "../../utils/formatType.js";
 
 function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) {
-  const businessEntityOptions = [
-    "Sole Proprietorship",
-    "Partnership",
-    "Limited Liability Company",
-  ];
-
-  const companyTypeOptions = [
-    "Funeral Home",
-    "Logistics services",
-    "Burial care contractor",
-  ];
-
   const handleInputChange = (key, value) => {
+    console.log("key: ", key, "value: ", value);
     setFormData({ ...formData, [key]: value });
   };
 

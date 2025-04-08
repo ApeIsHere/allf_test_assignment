@@ -13,7 +13,7 @@ function Card({ type = null, companyStore }) {
   };
 
   const handleSaveClick = () => {
-    if (type === "details") {
+    if (type === "company") {
       const updatedCompany = {
         name: companyStore.company.name,
         shortName: companyStore.company.shortName,
