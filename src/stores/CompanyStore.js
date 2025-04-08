@@ -114,7 +114,7 @@ class CompanyStore {
   async updateCompany(updatedData) {
     this.setLoading(true);
     this.setError(null);
-
+    console.log(updatedData);
     try {
       const response = await fetch("https://test-task-api.allfuneral.com/companies/12", {
         method: "PATCH",
@@ -153,6 +153,55 @@ class CompanyStore {
       if (!response.ok) throw new Error("Failed to update contact data");
       const data = await response.json();
       this.setContact(data);
+    } catch (err) {
+      this.setError(err.message);
+    } finally {
+      this.setLoading(false);
+    }
+  }
+
+  async deleteCompany() {
+    this.setLoading(true);
+    this.setError(null);
+
+    try {
+      const response = await fetch("https://test-task-api.allfuneral.com/companies/12", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to delete company");
+
+      // Reset the company data after deletion
+      this.setCompany({
+        id: "",
+        contactId: "",
+        name: "",
+        shortName: "",
+        businessEntity: "",
+        contract: {
+          no: "",
+          issue_date: "",
+        },
+        type: [],
+        status: "",
+        photos: [],
+        createdAt: "",
+        updatedAt: "",
+      });
+
+      this.setContact({
+        id: "",
+        lastname: "",
+        firstname: "",
+        phone: "",
+        email: "",
+        createdAt: "",
+        updatedAt: "",
+      });
     } catch (err) {
       this.setError(err.message);
     } finally {

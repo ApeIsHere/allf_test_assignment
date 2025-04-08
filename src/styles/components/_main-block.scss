@@ -40,6 +40,9 @@
     &-buttons {
       display: flex;
       gap: 4px;
+      & button {
+        cursor: pointer;
+      }
     }
 
     &-pen path {

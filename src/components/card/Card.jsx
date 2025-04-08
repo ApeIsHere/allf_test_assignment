@@ -15,8 +15,6 @@ function Card({ type = null, companyStore }) {
   const handleSaveClick = () => {
     if (type === "company") {
       const updatedCompany = {
-        name: companyStore.company.name,
-        shortName: companyStore.company.shortName,
         businessEntity:
           formData.businessEntity?.[0] || companyStore.company.businessEntity,
         contract: {
