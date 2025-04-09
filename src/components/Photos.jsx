@@ -4,13 +4,21 @@ import PhotoIcon from "./ui/PhotoIcon";
 import TrashIcon from "./ui/TrashIcon";
 import companyStore from "../stores/CompanyStore";
 import { useRef } from "react";
+import { validateImageFile } from "../utils/validators";
+import { toast } from "react-toastify";
 
 const Photos = observer(() => {
   const { photos } = companyStore.company;
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
+
     if (file) {
+      if (!validateImageFile(file)) {
+        toast.error("Selected file should be image and less than 2mb.");
+        return;
+      }
+
       companyStore.uploadPhoto(file);
     }
     e.target.value = null; // reset

@@ -6,7 +6,6 @@ import { formatType } from "../../utils/formatType.js";
 
 function CompanyDetailsList({ isEditing, company, formData, setFormData }) {
   const handleInputChange = (key, value) => {
-    console.log("key: ", key, "value: ", value);
     setFormData({ ...formData, [key]: value });
   };
 

@@ -2,12 +2,18 @@ import { useRef, useState } from "react";
 import Button from "./Button";
 import useOutsideClickAndEscape from "../../hooks/useOutsideClickAndEscape";
 import companyStore from "../../stores/CompanyStore";
+import { validateName } from "../../utils/validators";
+import { toast } from "react-toastify";
 
 function Modal({ type, isModalOpen, setIsModalOpen }) {
   const [companyName, setCompanyName] = useState(companyStore.company.name);
   const modalRef = useRef(null);
 
   const handleEditConfirm = () => {
+    if (!validateName(companyName)) {
+      toast.error("Company name shouldn't be empty");
+      return;
+    }
     companyStore.updateCompany({ name: companyName });
     setIsModalOpen(false);
   };

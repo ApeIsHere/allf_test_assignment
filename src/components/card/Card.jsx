@@ -4,6 +4,8 @@ import CardTitle from "./CardTitle";
 import CompanyDetailsList from "./CompanyDetailsList";
 import ContactsList from "./ContactsList";
 import companyStore from "../../stores/CompanyStore";
+import { validateEmail, validateName, validatePhone } from "../../utils/validators";
+import { toast } from "react-toastify";
 
 const Card = observer(({ type = null }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,20 +24,44 @@ const Card = observer(({ type = null }) => {
       type: formData.companyTypes || companyStore.company.type,
     };
     companyStore.updateCompany(updatedCompany);
+    setIsEditing(false);
+    setFormData({});
   };
 
   const handleContactUpdate = () => {
+    // split full name to firstName and lastName
+    const fullName = formData.fullName.trim();
     const [firstname = "", ...rest] = (formData.fullName ?? "").trim().split(" ");
     const lastname = rest.join(" ");
+    const email = formData.email ?? companyStore.contact.email;
+    const phone = formData.phone ?? companyStore.contact.phone;
+    const cleanedPhone = phone.replace(/\D/g, "");
+
+    // Validation
+    if (!validateName(fullName)) {
+      toast.error("Name shouldn't be empty");
+      return;
+    }
+    if (!validateEmail(email)) {
+      toast.error("Invalid email address");
+      return;
+    }
+
+    if (!validatePhone(cleanedPhone)) {
+      toast.error("Invalid phone number");
+      return;
+    }
 
     const updatedContact = {
       lastname,
       firstname,
-      phone: formData.phone ?? companyStore.contact.phone,
-      email: formData.email ?? companyStore.contact.email,
+      phone: cleanedPhone,
+      email,
     };
 
     companyStore.updateContact(updatedContact);
+    setIsEditing(false);
+    setFormData({});
   };
 
   const handleEditClick = () => {
@@ -52,6 +78,7 @@ const Card = observer(({ type = null }) => {
         lastname: companyStore.contact.lastname,
         phone: companyStore.contact.phone,
         email: companyStore.contact.email,
+        // Add fullName to be able to edit it in the single input field
         fullName:
           `${companyStore.contact.firstname} ${companyStore.contact.lastname}`.trim(),
       });
@@ -65,8 +92,6 @@ const Card = observer(({ type = null }) => {
     } else if (type === "contacts") {
       handleContactUpdate();
     }
-    setIsEditing(false);
-    setFormData({});
   };
 
   const handleCancelClick = () => {
