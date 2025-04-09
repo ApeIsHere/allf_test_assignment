@@ -4,7 +4,7 @@ import CustomSelect from "../ui/CustomSelect.jsx";
 import { businessEntityOptions, companyTypeOptions } from "../../constants/options.js";
 import { formatType } from "../../utils/formatType.js";
 
-function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) {
+function CompanyDetailsList({ isEditing, company, formData, setFormData }) {
   const handleInputChange = (key, value) => {
     console.log("key: ", key, "value: ", value);
     setFormData({ ...formData, [key]: value });
@@ -19,7 +19,7 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
             <input
               className="card__list-input card__list-input--small"
               type="text"
-              value={formData.contractNo || companyStore.company.contract.no}
+              value={formData.contractNo || company.contract.no}
               onChange={(e) => handleInputChange("contractNo", e.target.value)}
             />
             <span className="card__list-name card__list-date">Date:</span>
@@ -28,7 +28,7 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
               selected={
                 formData.issueDate
                   ? new Date(formData.issueDate)
-                  : new Date(companyStore.company.contract.issue_date)
+                  : new Date(company.contract.issue_date)
               }
               onChange={(date) => handleInputChange("issueDate", date.toISOString())}
               dateFormat="MM.dd.yyyy"
@@ -38,9 +38,7 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
             <span className="card__list-name">Business entity:</span>
             <CustomSelect
               options={businessEntityOptions}
-              selectedOptions={
-                formData.businessEntity || [companyStore.company.businessEntity]
-              }
+              selectedOptions={formData.businessEntity || [company.businessEntity]}
               onChange={(value) => handleInputChange("businessEntity", value)}
               isMulti={false}
               placeholder="Select business entity"
@@ -50,7 +48,7 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
             <span className="card__list-name">Company type:</span>
             <CustomSelect
               options={companyTypeOptions}
-              selectedOptions={formData.companyTypes || companyStore.company.type}
+              selectedOptions={formData.companyTypes || company.type}
               onChange={(value) => handleInputChange("companyTypes", value)}
               isMulti={true}
               placeholder="Select company types"
@@ -62,10 +60,10 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
           <li className="card__list-item">
             <span className="card__list-name">Agreement:</span>
             <span className="card__list-value">
-              {companyStore.company.contract.no || "-"}{" "}
+              {company.contract.no || "-"}{" "}
               <span style={{ color: "rgba(0, 0, 0, 0.3)" }}>/</span>{" "}
-              {companyStore.company.contract.issue_date
-                ? new Date(companyStore.company.contract.issue_date)
+              {company.contract.issue_date
+                ? new Date(company.contract.issue_date)
                     .toLocaleDateString("en-US", {
                       month: "2-digit",
                       day: "2-digit",
@@ -77,15 +75,11 @@ function CompanyDetailsList({ isEditing, companyStore, formData, setFormData }) 
           </li>
           <li className="card__list-item">
             <span className="card__list-name">Business entity:</span>
-            <span className="card__list-value">
-              {companyStore.company.businessEntity || "-"}
-            </span>
+            <span className="card__list-value">{company.businessEntity || "-"}</span>
           </li>
           <li className="card__list-item">
             <span className="card__list-name">Company type:</span>
-            <span className="card__list-value">
-              {formatType(companyStore.company.type)}
-            </span>
+            <span className="card__list-value">{formatType(company.type)}</span>
           </li>
         </ul>
       )}

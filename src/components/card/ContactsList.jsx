@@ -1,10 +1,10 @@
 import { formatPhone } from "../../utils/formatPhone";
 
-function ContactsList({ isEditing, companyStore, formData, setFormData }) {
+function ContactsList({ isEditing, contact, formData, setFormData }) {
   const handleInputChange = (key, value) => {
     setFormData({ ...formData, [key]: value });
   };
-  const formattedPhone = formatPhone(companyStore.contact.phone);
+  const formattedPhone = formatPhone(contact.phone);
 
   return (
     <>
@@ -14,8 +14,8 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
             <span className="card__list-name">Responsible person:</span>
             <input
               type="text"
-              value={`${formData.firstname || companyStore.contact.firstname} ${
-                formData.lastname || companyStore.contact.lastname
+              value={`${formData.firstname || contact.firstname} ${
+                formData.lastname || contact.lastname
               }`}
               className="card__list-input"
               onChange={(e) => {
@@ -29,7 +29,7 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
             <span className="card__list-name">Phone number:</span>
             <input
               type="tel"
-              value={formData.phone || companyStore.contact.phone}
+              value={formData.phone || contact.phone}
               className="card__list-input"
               onChange={(e) => handleInputChange("phone", e.target.value)}
             />
@@ -38,7 +38,7 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
             <span className="card__list-name">E-mail:</span>
             <input
               type="email"
-              value={formData.email || companyStore.contact.email}
+              value={formData.email || contact.email}
               className="card__list-input"
               onChange={(e) => handleInputChange("email", e.target.value)}
             />
@@ -49,7 +49,7 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
           <li className="card__list-item">
             <span className="card__list-name">Responsible person:</span>
             <span className="card__list-value">
-              {companyStore.contact.firstname} {companyStore.contact.lastname}
+              {contact.firstname} {contact.lastname}
             </span>
           </li>
           <li className="card__list-item">
@@ -58,7 +58,7 @@ function ContactsList({ isEditing, companyStore, formData, setFormData }) {
           </li>
           <li className="card__list-item">
             <span className="card__list-name">E-mail:</span>
-            <span className="card__list-value">{companyStore.contact.email}</span>
+            <span className="card__list-value">{contact.email}</span>
           </li>
         </ul>
       )}

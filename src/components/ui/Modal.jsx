@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import Button from "./Button";
 import useOutsideClickAndEscape from "../../hooks/useOutsideClickAndEscape";
+import companyStore from "../../stores/CompanyStore";
 
-function Modal({ type, isModalOpen, setIsModalOpen, companyStore }) {
+function Modal({ type, isModalOpen, setIsModalOpen }) {
   const [companyName, setCompanyName] = useState(companyStore.company.name);
   const modalRef = useRef(null);
 

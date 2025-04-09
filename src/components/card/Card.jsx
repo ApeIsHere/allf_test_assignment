@@ -1,12 +1,35 @@
 import { useState } from "react";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react-lite";
 import CardTitle from "./CardTitle";
 import CompanyDetailsList from "./CompanyDetailsList";
 import ContactsList from "./ContactsList";
+import companyStore from "../../stores/CompanyStore";
 
-function Card({ type = null, companyStore }) {
+const Card = observer(({ type = null }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
+
+  const handleCompanyUpdate = () => {
+    const updatedCompany = {
+      businessEntity: formData.businessEntity?.[0] || companyStore.company.businessEntity,
+      contract: {
+        no: formData.contractNo || companyStore.company.contract.no,
+        issue_date: formData.issueDate || companyStore.company.contract.issue_date,
+      },
+      type: formData.companyTypes || companyStore.company.type,
+    };
+    companyStore.updateCompany(updatedCompany);
+  };
+
+  const handleContactUpdate = () => {
+    const updatedContact = {
+      lastname: formData.lastname || companyStore.contact.lastname,
+      firstname: formData.firstname || companyStore.contact.firstname,
+      phone: formData.phone || companyStore.contact.phone,
+      email: formData.email || companyStore.contact.email,
+    };
+    companyStore.updateContact(updatedContact);
+  };
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -14,24 +37,9 @@ function Card({ type = null, companyStore }) {
 
   const handleSaveClick = () => {
     if (type === "company") {
-      const updatedCompany = {
-        businessEntity:
-          formData.businessEntity?.[0] || companyStore.company.businessEntity,
-        contract: {
-          no: formData.contractNo || companyStore.company.contract.no,
-          issue_date: formData.issueDate || companyStore.company.contract.issue_date,
-        },
-        type: formData.companyTypes || companyStore.company.type,
-      };
-      companyStore.updateCompany(updatedCompany);
+      handleCompanyUpdate();
     } else if (type === "contacts") {
-      const updatedContact = {
-        lastname: formData.lastname || companyStore.contact.lastname,
-        firstname: formData.firstname || companyStore.contact.firstname,
-        phone: formData.phone || companyStore.contact.phone,
-        email: formData.email || companyStore.contact.email,
-      };
-      companyStore.updateContact(updatedContact);
+      handleContactUpdate();
     }
     setIsEditing(false);
     setFormData({});
@@ -54,7 +62,7 @@ function Card({ type = null, companyStore }) {
       {type === "company" && (
         <CompanyDetailsList
           isEditing={isEditing}
-          companyStore={companyStore}
+          company={companyStore.company}
           formData={formData}
           setFormData={setFormData}
         />
@@ -62,14 +70,13 @@ function Card({ type = null, companyStore }) {
       {type === "contacts" && (
         <ContactsList
           isEditing={isEditing}
-          companyStore={companyStore}
+          contact={companyStore.contact}
           formData={formData}
           setFormData={setFormData}
         />
       )}
     </div>
   );
-}
+});
 
-const CardWithMobX = inject("companyStore")(observer(Card));
-export default CardWithMobX;
+export default Card;

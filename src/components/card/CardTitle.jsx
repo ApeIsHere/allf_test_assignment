@@ -7,7 +7,7 @@ function CardTitle({ type, onSaveClick, onCancelClick, onEditClick, isEditing })
   return (
     <div className="card__title">
       <h2 className="card__title-text">
-        {type === "details" && "Company Details"}
+        {type === "company" && "Company Details"}
         {type === "contacts" && "Contacts"}
       </h2>
 

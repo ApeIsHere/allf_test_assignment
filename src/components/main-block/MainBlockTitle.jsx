@@ -5,7 +5,7 @@ import TrashIcon from "../ui/TrashIcon";
 import Modal from "../ui/Modal";
 import { useState } from "react";
 
-function MainBlockTitle({ companyStore }) {
+function MainBlockTitle({ companyName }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -14,7 +14,7 @@ function MainBlockTitle({ companyStore }) {
       <span className="main-block__title-chevron">
         <Button type="bright" size="small" icon={<ChevronIcon />} />
       </span>
-      <h1 className="main-block__title-text">{companyStore.company.name}</h1>
+      <h1 className="main-block__title-text">{companyName}</h1>
       <div className="main-block__title-buttons">
         <span className="main-block__title-pen">
           <Button
@@ -37,13 +37,11 @@ function MainBlockTitle({ companyStore }) {
         type="edit"
         isModalOpen={isEditModalOpen}
         setIsModalOpen={setIsEditModalOpen}
-        companyStore={companyStore}
       />
       <Modal
         type="delete"
         isModalOpen={isDeleteModalOpen}
         setIsModalOpen={setIsDeleteModalOpen}
-        companyStore={companyStore}
       />
     </div>
   );
