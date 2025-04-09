@@ -13,7 +13,10 @@ const Card = observer(({ type = null }) => {
     const updatedCompany = {
       businessEntity: formData.businessEntity?.[0] || companyStore.company.businessEntity,
       contract: {
-        no: formData.contractNo || companyStore.company.contract.no,
+        no:
+          formData.contractNo !== undefined
+            ? formData.contractNo
+            : companyStore.company.contract.no,
         issue_date: formData.issueDate || companyStore.company.contract.issue_date,
       },
       type: formData.companyTypes || companyStore.company.type,
@@ -22,16 +25,37 @@ const Card = observer(({ type = null }) => {
   };
 
   const handleContactUpdate = () => {
+    const [firstname = "", ...rest] = (formData.fullName ?? "").trim().split(" ");
+    const lastname = rest.join(" ");
+
     const updatedContact = {
-      lastname: formData.lastname || companyStore.contact.lastname,
-      firstname: formData.firstname || companyStore.contact.firstname,
-      phone: formData.phone || companyStore.contact.phone,
-      email: formData.email || companyStore.contact.email,
+      lastname,
+      firstname,
+      phone: formData.phone ?? companyStore.contact.phone,
+      email: formData.email ?? companyStore.contact.email,
     };
+
     companyStore.updateContact(updatedContact);
   };
 
   const handleEditClick = () => {
+    if (type === "company") {
+      setFormData({
+        contractNo: companyStore.company.contract.no,
+        issueDate: companyStore.company.contract.issue_date,
+        businessEntity: [companyStore.company.businessEntity],
+        companyTypes: companyStore.company.type,
+      });
+    } else if (type === "contacts") {
+      setFormData({
+        firstname: companyStore.contact.firstname,
+        lastname: companyStore.contact.lastname,
+        phone: companyStore.contact.phone,
+        email: companyStore.contact.email,
+        fullName:
+          `${companyStore.contact.firstname} ${companyStore.contact.lastname}`.trim(),
+      });
+    }
     setIsEditing(true);
   };
 

@@ -13,23 +13,21 @@ function ContactsList({ isEditing, contact, formData, setFormData }) {
           <li className="card__list-item">
             <span className="card__list-name">Responsible person:</span>
             <input
+              required
               type="text"
-              value={`${formData.firstname || contact.firstname} ${
-                formData.lastname || contact.lastname
-              }`}
+              value={formData.fullName ?? ""}
               className="card__list-input"
               onChange={(e) => {
-                const [firstname, lastname] = e.target.value.split(" ");
-                handleInputChange("firstname", firstname);
-                handleInputChange("lastname", lastname || "");
+                handleInputChange("fullName", e.target.value);
               }}
             />
           </li>
           <li className="card__list-item">
             <span className="card__list-name">Phone number:</span>
             <input
+              required
               type="tel"
-              value={formData.phone || contact.phone}
+              value={formData.phone ?? ""}
               className="card__list-input"
               onChange={(e) => handleInputChange("phone", e.target.value)}
             />
@@ -38,7 +36,7 @@ function ContactsList({ isEditing, contact, formData, setFormData }) {
             <span className="card__list-name">E-mail:</span>
             <input
               type="email"
-              value={formData.email || contact.email}
+              value={formData.email ?? ""}
               className="card__list-input"
               onChange={(e) => handleInputChange("email", e.target.value)}
             />

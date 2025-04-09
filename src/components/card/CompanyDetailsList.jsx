@@ -19,17 +19,13 @@ function CompanyDetailsList({ isEditing, company, formData, setFormData }) {
             <input
               className="card__list-input card__list-input--small"
               type="text"
-              value={formData.contractNo || company.contract.no}
+              value={formData.contractNo ?? ""}
               onChange={(e) => handleInputChange("contractNo", e.target.value)}
             />
             <span className="card__list-name card__list-date">Date:</span>
             <DatePicker
               className="card__list-input card__list-input--small"
-              selected={
-                formData.issueDate
-                  ? new Date(formData.issueDate)
-                  : new Date(company.contract.issue_date)
-              }
+              selected={formData.issueDate ? new Date(formData.issueDate) : null}
               onChange={(date) => handleInputChange("issueDate", date.toISOString())}
               dateFormat="MM.dd.yyyy"
             />
@@ -38,7 +34,7 @@ function CompanyDetailsList({ isEditing, company, formData, setFormData }) {
             <span className="card__list-name">Business entity:</span>
             <CustomSelect
               options={businessEntityOptions}
-              selectedOptions={formData.businessEntity || [company.businessEntity]}
+              selectedOptions={formData.businessEntity || []}
               onChange={(value) => handleInputChange("businessEntity", value)}
               isMulti={false}
               placeholder="Select business entity"
@@ -48,7 +44,7 @@ function CompanyDetailsList({ isEditing, company, formData, setFormData }) {
             <span className="card__list-name">Company type:</span>
             <CustomSelect
               options={companyTypeOptions}
-              selectedOptions={formData.companyTypes || company.type}
+              selectedOptions={formData.companyTypes || []}
               onChange={(value) => handleInputChange("companyTypes", value)}
               isMulti={true}
               placeholder="Select company types"

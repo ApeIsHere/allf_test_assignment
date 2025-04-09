@@ -12,7 +12,7 @@ function App() {
         <MainMenu />
         <Sidebar />
         <MainBlock />
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-center" autoClose={3000} />
       </div>
     </Provider>
   );
