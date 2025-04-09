@@ -3,6 +3,7 @@ import MainBlock from "./components/main-block/MainBlock";
 import MainMenu from "./components/MainMenu";
 import Sidebar from "./components/Sidebar";
 import companyStore from "./stores/CompanyStore";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <MainMenu />
         <Sidebar />
         <MainBlock />
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Provider>
   );
