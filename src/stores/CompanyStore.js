@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+import { toast } from "react-toastify";
 
 class CompanyStore {
   company = {
@@ -84,9 +85,7 @@ class CompanyStore {
       );
       if (!companyResponse) throw new Error("Failed to fetch company data");
       const companyData = await companyResponse.json();
-      console.log("Company API:", companyData);
       this.setCompany(companyData);
-      console.log("Company after setCompany:", JSON.stringify(this.company, null, 2));
 
       // Fetch contact data
       const contactResponse = await fetch(
@@ -100,10 +99,9 @@ class CompanyStore {
       );
       if (!contactResponse.ok) throw new Error("Failed to fetch contact data");
       const contactData = await contactResponse.json();
-      console.log("Contact API:", contactData);
       this.setContact(contactData);
-      console.log("Contact after setContact:", JSON.stringify(this.contact, null, 2));
     } catch (err) {
+      toast.error(err.message || "Failed to fecth data");
       this.setError(err.message);
     } finally {
       this.setLoading(false);
@@ -114,7 +112,6 @@ class CompanyStore {
   async updateCompany(updatedData) {
     this.setLoading(true);
     this.setError(null);
-    console.log(updatedData);
     try {
       const response = await fetch("https://test-task-api.allfuneral.com/companies/12", {
         method: "PATCH",
@@ -128,8 +125,10 @@ class CompanyStore {
       if (!response.ok) throw new Error("Failed to update company data");
       const data = await response.json();
       this.setCompany(data);
+      toast.success("Company data updated");
     } catch (err) {
       this.setError(err.message);
+      toast.error(err.message || "Something went wrong");
     } finally {
       this.setLoading(false);
     }
@@ -152,8 +151,8 @@ class CompanyStore {
 
       if (!response.ok) throw new Error("Failed to update contact data");
       const data = await response.json();
-      console.log("cotact updated came as ", data);
       this.setContact(data);
+      toast.success("Contacts data updated");
     } catch (err) {
       this.setError(err.message);
     } finally {
@@ -203,8 +202,10 @@ class CompanyStore {
         createdAt: "",
         updatedAt: "",
       });
+      toast.success("Company was successfully deleted");
     } catch (err) {
       this.setError(err.message);
+      toast.error(err.message || "Something went wrong");
     } finally {
       this.setLoading(false);
     }
@@ -230,8 +231,10 @@ class CompanyStore {
       if (!response.ok) throw new Error("Failed uploading photo");
       const newPhoto = await response.json();
       this.setCompany({ photos: [...this.company.photos, newPhoto] });
+      toast.success("Photo was successfully uploaded");
     } catch (err) {
       this.setError(err.message);
+      toast.error(err.message || "Something went wrong");
     } finally {
       this.setLoading(false);
     }
@@ -258,8 +261,10 @@ class CompanyStore {
         (photo) => photo.name !== photoName
       );
       this.setCompany({ photos: updatedPhotos });
+      toast.success("Photo was successfully deleted");
     } catch (err) {
       this.setError(err.message);
+      toast.error(err.message || "Something went wrong");
     } finally {
       this.setLoading(false);
     }

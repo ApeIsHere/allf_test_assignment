@@ -13,6 +13,7 @@ const Photos = observer(() => {
     if (file) {
       companyStore.uploadPhoto(file);
     }
+    e.target.value = null; // reset
   };
 
   const handleDelete = (photoName) => {
