@@ -3,12 +3,15 @@ import Button from "./ui/Button";
 import PhotoIcon from "./ui/PhotoIcon";
 import TrashIcon from "./ui/TrashIcon";
 import companyStore from "../stores/CompanyStore";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { validateImageFile } from "../utils/validators";
 import { toast } from "react-toastify";
+import Modal from "./ui/Modal";
 
 const Photos = observer(() => {
   const { photos } = companyStore.company;
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [filePath, setFilePath] = useState("");
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -28,11 +31,29 @@ const Photos = observer(() => {
     companyStore.deletePhoto(photoName);
   };
 
+  const handleOpenImage = (filePath) => {
+    setIsPhotoModalOpen(true);
+    setFilePath(filePath);
+    console.log(filePath);
+  };
+
   return (
-    <div className="photos">
-      <PhotosTitle handleUpload={handleUpload} />
-      <PhotosContainer photos={photos} handleDelete={handleDelete} />
-    </div>
+    <>
+      <div className="photos">
+        <PhotosTitle handleUpload={handleUpload} />
+        <PhotosContainer
+          photos={photos}
+          handleDelete={handleDelete}
+          handleOpenImage={handleOpenImage}
+        />
+      </div>
+      <Modal
+        type="photo"
+        isModalOpen={isPhotoModalOpen}
+        setIsModalOpen={setIsPhotoModalOpen}
+        filePath={filePath}
+      />
+    </>
   );
 });
 
@@ -66,14 +87,15 @@ function PhotosTitle({ handleUpload }) {
   );
 }
 
-function PhotosContainer({ photos, handleDelete }) {
+function PhotosContainer({ photos, handleDelete, handleOpenImage }) {
   return (
     <div className="photos__content">
       <ul className="photos__items">
         {photos.map((photo) => (
           <PhotoItem
             key={photo.name}
-            path={photo.filepath}
+            path={photo.thumbpath}
+            onOpen={() => handleOpenImage(photo.filepath)}
             onClick={() => handleDelete(photo.name)}
           />
         ))}
@@ -82,9 +104,9 @@ function PhotosContainer({ photos, handleDelete }) {
   );
 }
 
-function PhotoItem({ path, onClick }) {
+function PhotoItem({ path, onClick, onOpen }) {
   return (
-    <li className="photos__item">
+    <li className="photos__item" onClick={onOpen}>
       <img src={path} alt="image" loading="lazy" />
       <button className="photos__item-delete" aria-label="Delete photo" onClick={onClick}>
         <TrashIcon />

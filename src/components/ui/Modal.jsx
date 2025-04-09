@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import Button from "./Button";
 import useOutsideClickAndEscape from "../../hooks/useOutsideClickAndEscape";
 import companyStore from "../../stores/CompanyStore";
 import { validateName } from "../../utils/validators";
-import { toast } from "react-toastify";
 
-function Modal({ type, isModalOpen, setIsModalOpen }) {
+function Modal({ type, isModalOpen, setIsModalOpen, filePath }) {
   const [companyName, setCompanyName] = useState(companyStore.company.name);
   const modalRef = useRef(null);
 
@@ -74,6 +74,9 @@ function Modal({ type, isModalOpen, setIsModalOpen }) {
             </div>
           </div>
         </>
+      )}
+      {type === "photo" && (
+        <img className="modal__image" src={filePath} alt="Preview" ref={modalRef} />
       )}
     </div>
   );
